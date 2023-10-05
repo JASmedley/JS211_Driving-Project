@@ -38,20 +38,8 @@ drive = (miles) => {
   //Easier to have a variable holding the max distance a car can drive (fuel x miles per gallon)
   let maxDistance = this.fuel * this.mpg
 
-  // In the tests it said if there's no fuel and you try to drive the car, then the
-  // *odometer* should say 'Add gas to move car.'
-  // But, if I change the Odometer to a string then it won't change back to a number
-  // if I add fuel later on. It will just be a string and a number next to it. 
-  // Also, an odometer reads off numbers not statements. 
-  // I'd prefer to not have this in here, but I'm adding it because the unit tests 
-  // we created have them. 
-  if (miles > 0 && this.fuel == 0){
-    this.odometer += "Add gas to move car."
-
-  }
-
   //Update to ensure you can't drive farther than fuel can support
-  else if (miles > maxDistance) {
+ if (miles > maxDistance) {
     //Miles driven can't be greater than available fuel. 
     this.odometer += maxDistance
     //Can't have negative fuel. 
@@ -95,36 +83,36 @@ if(typeof describe === 'function'){
     it("does NOT drive without putting fuel in", function(){
       let newCar = new Car("vin",5,10);
       newCar.drive(2);
-      assert.equal(newCar.odometer, "Add gas to move car.")
+      assert.equal(newCar.odometer, 0)
       newCar.addFuel(1)
       newCar.drive(2);
       assert.equal(newCar.odometer,2)
   })
 
-  // it("drives after adding fuel", function(){
-  //   let car1 = new Car("vin",17,10);
-  //   car1.addFuel(5);
-  //   assert.equal(car1.fuel, 5);
-  //   car1.drive(34); 
-  //   assert.equal(car1.fuel,) 
+  it("drives after adding fuel", function(){
+    let newCar = new Car("vin",20,10);
+    newCar.addFuel(5);
+    assert.equal(newCar.fuel, 5);
+    newCar.drive(80); 
+    assert.equal(newCar.fuel,1) 
   
-  // })
+  })
 
-  // it("does NOT drive after I am out of fuel", function(){
-  //   let car = new Car("vin", 17, 10) ;
-  //   car.addFuel(10);
-  //   car.drive(170);
-  //   assert.equal(car.fuel,0);
-  //   drive(1);
-  //   assert.equal(car.odometer,170)
-  //   assert.equal(car.fuel,0)
-  // })
+  it("does NOT drive after I am out of fuel", function(){
+    let newCar = new Car("vin", 20, 10) ;
+    newCar.addFuel(5);
+    newCar.drive(80);
+    assert.equal(newCar.fuel,1);
+    newCar.drive(40);
+    assert.equal(newCar.odometer,100)
+    assert.equal(newCar.fuel,0)
+  })
 
-  // it("does NOT let me put more fuel than the capacity", function() {
-  //   let car2 = new Car(12,17,10)
-  //   assert.equal(car2.addFuel(12));
-  //   assert.equal(car2.fuel, 10)
-  // })
+  it("does NOT let me put more fuel than the capacity", function() {
+    let newCar = new Car("vin",20,10)
+    newCar.addFuel(11);
+    assert.equal(newCar.fuel, 10)
+  })
 });
 }
 
