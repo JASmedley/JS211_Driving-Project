@@ -106,12 +106,15 @@ if(typeof describe === 'function'){
     newCar.drive(40);
     assert.equal(newCar.odometer,100)
     assert.equal(newCar.fuel,0)
+    console.log(newCar.drive(40))
+
   })
 
   it("does NOT let me put more fuel than the capacity", function() {
     let newCar = new Car("vin",20,10)
     newCar.addFuel(11);
     assert.equal(newCar.fuel, 10)
+    console.log(newCar.addFuel(11))
   })
 });
 }
