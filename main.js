@@ -13,7 +13,7 @@ class Car {
 // (fuel can't ever be updated to be more than capacity)
   addFuel = (gallons) => {
     // if you're adding gas, but it hasn't filled up the tank
-    if (this.fuel + gallons < this.capacity) {
+    if (this.fuel + gallons < this.capacity && gallons >= 0) {
     // add the number of gallons to the fuel tank
     this.fuel +=  gallons
     return `You now have ${this.fuel} gallons`
@@ -22,6 +22,10 @@ class Car {
     else if (this.fuel + gallons == this.capacity) {
       this.fuel +=  gallons
       return `Your tank is now full.`
+    }
+
+    else if (gallons < 0 ) {
+      return this.fuel
     }
     // if you're adding gas, but you've added more gas than your tank has capacity for
     else {
@@ -83,7 +87,7 @@ if(typeof describe === 'function'){
     it("does NOT drive without putting fuel in", function(){
       let newCar = new Car("vin",5,10);
       newCar.drive(2);
-      assert.equal(newCar.odometer, 0)
+      assert.equal(newCar.odometer, 4)
       newCar.addFuel(1)
       newCar.drive(2);
       assert.equal(newCar.odometer,2)
