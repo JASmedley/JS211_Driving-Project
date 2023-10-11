@@ -25,7 +25,7 @@ class Car {
     }
 
     else if (gallons < 0 ) {
-      return this.fuel
+      return
     }
     // if you're adding gas, but you've added more gas than your tank has capacity for
     else {
